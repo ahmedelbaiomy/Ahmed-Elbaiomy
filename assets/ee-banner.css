@@ -55,9 +55,14 @@
   margin: 0;
 }
 
+.ee-banner__description--mobile,
+.ee-banner__ticker-text--mobile {
+  display: none;
+}
+
 .ee-banner__button {
   position: absolute;
-  top: var(--pos-top);
+  bottom: var(--pos-bottom);
   left: var(--pos-left);
   display: inline-flex;
   align-items: center;
@@ -145,11 +150,25 @@
 
   .ee-banner__button {
     top: 70%;
+    bottom: auto;
     left: 50%;
     width: auto;
     height: auto;
     transform: translateX(-50%);
     padding: 14px 24px;
+  }
+
+  .ee-banner__description--desktop,
+  .ee-banner__ticker-text--desktop {
+    display: none;
+  }
+
+  .ee-banner__description--mobile {
+    display: block;
+  }
+
+  .ee-banner__ticker-text--mobile {
+    display: inline;
   }
 
   .ee-banner__image-wrap {

@@ -14,10 +14,13 @@
   {% assign description_top = 609.0 | minus: header_height | plus: 30.0 | times: 100 | divided_by: frame_height %}
   {% assign description_left = 67.0 | times: 100 | divided_by: frame_width %}
   {% assign description_width = 560.0 | times: 100 | divided_by: frame_width %}
-  {% assign button_top = 743.0 | minus: header_height | times: 100 | divided_by: frame_height %}
+  {% assign button_top_px = 743.0 | minus: header_height %}
+  {% assign button_bottom = frame_height | minus: button_top_px | minus: 50.0 | times: 100 | divided_by: frame_height %}
   {% assign button_left = 67.0 | times: 100 | divided_by: frame_width %}
   {% assign button_width = 220.0 | times: 100 | divided_by: frame_width %}
   {% assign button_height = 50.0 | times: 100 | divided_by: frame_height %}
+  {% assign mobile_description = section.settings.description_mobile | default: section.settings.description %}
+  {% assign mobile_ticker_text = section.settings.ticker_text_mobile | default: section.settings.ticker_text %}
 
   <div class="ee-banner__hero">
     <h1
@@ -28,10 +31,17 @@
     </h1>
 
     <div
-      class="ee-banner__description"
+      class="ee-banner__description ee-banner__description--desktop"
       style="--pos-top: {{ description_top }}%; --pos-left: {{ description_left }}%; --el-width: {{ description_width }}%;"
     >
       {{ section.settings.description }}
+    </div>
+
+    <div
+      class="ee-banner__description ee-banner__description--mobile"
+      style="--pos-top: {{ description_top }}%; --pos-left: {{ description_left }}%; --el-width: {{ description_width }}%;"
+    >
+      {{ mobile_description }}
     </div>
 
     <div class="ee-banner__image-wrap">
@@ -58,7 +68,7 @@
         <a
           href="{{ section.settings.button_link }}"
           class="ee-banner__button"
-          style="--pos-top: {{ button_top }}%; --pos-left: {{ button_left }}%; --btn-width: {{ button_width }}%; --btn-height: {{ button_height }}%;"
+          style="--pos-bottom: {{ button_bottom }}%; --pos-left: {{ button_left }}%; --btn-width: {{ button_width }}%; --btn-height: {{ button_height }}%;"
         >
           <span>{{ section.settings.button_text }}</span>
           <span aria-hidden="true">
@@ -70,7 +80,8 @@
   </div>
 
   <div class="ee-banner__ticker">
-    {{ section.settings.ticker_text }}
+    <span class="ee-banner__ticker-text--desktop">{{ section.settings.ticker_text }}</span>
+    <span class="ee-banner__ticker-text--mobile">{{ mobile_ticker_text }}</span>
   </div>
 </section>
 
@@ -137,6 +148,13 @@
       "default": "<p>Discover joy: Your Ultimate Holiday Gift Destination.</p>"
     },
     {
+      "type": "richtext",
+      "id": "description_mobile",
+      "label": "Description (mobile)",
+      "info": "Optional. Falls back to the desktop description if not set",
+      "default": "<p>Discover Joy: Your Ultimate Holiday Gift Destination.</p>"
+    },
+    {
       "type": "text",
       "id": "button_text",
       "label": "Button text",
@@ -152,6 +170,13 @@
       "id": "ticker_text",
       "label": "Bottom text",
       "default": "SUSTAINABLE, ETHICALLY MADE CLOTHES IN SIZES XXS TO 6XL"
+    },
+    {
+      "type": "text",
+      "id": "ticker_text_mobile",
+      "label": "Bottom text (mobile)",
+      "info": "Optional. Falls back to the desktop text if not set",
+      "default": "SUSTAINABLE, ETHICALLY MADE ACTIVEWEAR"
     }
   ],
   "presets": [
