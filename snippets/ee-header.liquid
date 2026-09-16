@@ -10,14 +10,14 @@
     aria-label="Menu"
   >
     <img
-      src="{{ 'ee-assets/burger.svg' | asset_url }}"
+      src="{{ 'burger.svg' | asset_url }}"
       alt=""
       class="ee-banner__menu-icon-open"
       width="20"
       height="12"
     >
     <img
-      src="{{ 'ee-assets/cross.svg' | asset_url }}"
+      src="{{ 'cross.svg' | asset_url }}"
       alt=""
       class="ee-banner__menu-icon-close"
       width="15"
@@ -51,7 +51,7 @@
         {% if section.settings.top_button_icon != blank %}
           {{ section.settings.top_button_icon | image_url: width: 40 | image_tag: loading: 'lazy' }}
         {% else %}
-          <img src="{{ 'ee-assets/arrow-black.svg' | asset_url }}" alt="" width="26" height="12">
+          <img src="{{ 'arrow-black.svg' | asset_url }}" alt="" width="26" height="12">
         {% endif %}
       </span>
     </a>
