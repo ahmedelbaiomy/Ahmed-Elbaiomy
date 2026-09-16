@@ -4,15 +4,17 @@
   {% render 'ee-header', section: section %}
 
 
+
   {% assign frame_width = 1440.0 %}
-  {% assign frame_height = 868.0 %}
-  {% assign heading_top = 489.0 | times: 100 | divided_by: frame_height %}
+  {% assign frame_height = 780.0 %}
+  {% assign header_height = 64.0 %}
+  {% assign heading_top = 489.0 | minus: header_height | times: 100 | divided_by: frame_height %}
   {% assign heading_left = 67.0 | times: 100 | divided_by: frame_width %}
   {% assign heading_width = 459.0 | times: 100 | divided_by: frame_width %}
-  {% assign description_top = 609.0 | times: 100 | divided_by: frame_height %}
+  {% assign description_top = 609.0 | minus: header_height | times: 100 | divided_by: frame_height %}
   {% assign description_left = 67.0 | times: 100 | divided_by: frame_width %}
   {% assign description_width = 483.0 | times: 100 | divided_by: frame_width %}
-  {% assign button_top = 743.0 | times: 100 | divided_by: frame_height %}
+  {% assign button_top = 743.0 | minus: header_height | times: 100 | divided_by: frame_height %}
   {% assign button_left = 67.0 | times: 100 | divided_by: frame_width %}
   {% assign button_width = 220.0 | times: 100 | divided_by: frame_width %}
   {% assign button_height = 50.0 | times: 100 | divided_by: frame_height %}
@@ -33,16 +35,24 @@
     </div>
 
     <div class="ee-banner__image-wrap">
-      {% if section.settings.background_image != blank %}
-        {{
-          section.settings.background_image
-          | image_url: width: 2000
-          | image_tag:
-            class: 'ee-banner__image',
-            loading: 'eager',
-            widths: '750, 1100, 1500, 2000'
-        }}
-      {% endif %}
+      <picture>
+        {% if section.settings.background_image_mobile != blank %}
+          <source
+            media="(max-width: 749px)"
+            srcset="{{ section.settings.background_image_mobile | image_url: width: 750 }} 1x, {{ section.settings.background_image_mobile | image_url: width: 1500 }} 2x"
+          >
+        {% endif %}
+        {% if section.settings.background_image != blank %}
+          {{
+            section.settings.background_image
+            | image_url: width: 2000
+            | image_tag:
+              class: 'ee-banner__image',
+              loading: 'eager',
+              widths: '750, 1100, 1500, 2000'
+          }}
+        {% endif %}
+      </picture>
 
       {% if section.settings.button_text != blank %}
         <a
@@ -105,6 +115,12 @@
       "type": "image_picker",
       "id": "background_image",
       "label": "Banner image"
+    },
+    {
+      "type": "image_picker",
+      "id": "background_image_mobile",
+      "label": "Banner image (mobile)",
+      "info": "Optional. Falls back to the desktop banner image if not set"
     },
     {
       "type": "text",
