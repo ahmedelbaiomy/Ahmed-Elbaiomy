@@ -157,6 +157,12 @@
     overflow: hidden;
   }
 
+  .ee-banner__image-wrap picture {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+
   .ee-banner__image {
     width: 100%;
     height: 100%;
