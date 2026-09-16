@@ -33,6 +33,7 @@
   line-height: 100%;
   letter-spacing: 0;
   vertical-align: middle;
+  white-space: nowrap;
 }
 
 .ee-banner__description {
@@ -78,6 +79,12 @@
   letter-spacing: 0;
   text-align: center;
   text-transform: uppercase;
+}
+
+.ee-banner__button img {
+  display: block;
+  width: 20px;
+  height: auto;
 }
 
 .ee-banner__button > * {
@@ -143,5 +150,17 @@
     height: auto;
     transform: translateX(-50%);
     padding: 14px 24px;
+  }
+
+  .ee-banner__image-wrap {
+    aspect-ratio: 3 / 2;
+    overflow: hidden;
+  }
+
+  .ee-banner__image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
   }
 }
