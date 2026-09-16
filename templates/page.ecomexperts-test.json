@@ -29,6 +29,8 @@
         "header_text": "Find the ideal gift for your loved ones.",
         "top_button_text": "CHOOSE GIFT",
         "top_button_link": "",
+        "top_button_icon": "shopify://shop_images/left-arrow.svg",
+        "background_image": "shopify://shop_images/hero.svg",
         "heading": "The Gift Guide",
         "description": "<p>Discover joy: Your Ultimate Holiday Gift Destination.</p>",
         "button_text": "SHOP NOW",
