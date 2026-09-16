@@ -58,17 +58,13 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 28px;
-  height: 28px;
-  border-radius: 50%;
-  background: #fff;
-  color: #000;
-  font-family: "Jost", sans-serif;
-  font-size: 16px;
-  line-height: 1;
+  display: block;
+}
+
+.ee-grid__hotspot img {
+  display: block;
+  width: 24px;
+  height: 24px;
 }
 
 @media screen and (max-width: 749px) {
