@@ -34,14 +34,70 @@
         "background_image_mobile": "shopify://shop_images/hero-mobile.svg",
         "heading": "The Gift Guide",
         "description": "<p>Discover Joy: Your Ultimate Holiday Gift Destination. Explore our curated selection and find the perfect gifts to delight your loved ones this holiday season.</p>",
+        "description_mobile": "<p>Discover Joy: Your Ultimate Holiday Gift Destination.</p>",
         "button_text": "SHOP NOW",
         "button_link": "",
-        "ticker_text": "SUSTAINABLE, ETHICALLY MADE CLOTHES IN SIZES XXS TO 6XL"
+        "ticker_text": "SUSTAINABLE, ETHICALLY MADE CLOTHES IN SIZES XXS TO 6XL",
+        "ticker_text_mobile": "SUSTAINABLE, ETHICALLY MADE ACTIVEWEAR"
+      }
+    },
+    "ee_product_grid_VDhCrE": {
+      "type": "ee-product-grid",
+      "blocks": {
+        "product_EWBXMz": {
+          "type": "product",
+          "settings": {
+            "product": "black-leather-bag"
+          }
+        },
+        "product_UFw9VB": {
+          "type": "product",
+          "settings": {
+            "product": "blue-silk-tuxedo"
+          }
+        },
+        "product_T8cQDN": {
+          "type": "product",
+          "settings": {
+            "product": "floral-white-top"
+          }
+        },
+        "product_eJMbLT": {
+          "type": "product",
+          "settings": {
+            "product": "classic-leather-jacket"
+          }
+        },
+        "product_fYTwLf": {
+          "type": "product",
+          "settings": {
+            "product": "navy-sport-jacket"
+          }
+        },
+        "product_9A3pKD": {
+          "type": "product",
+          "settings": {
+            "product": "red-sports-tee"
+          }
+        }
+      },
+      "block_order": [
+        "product_EWBXMz",
+        "product_UFw9VB",
+        "product_T8cQDN",
+        "product_eJMbLT",
+        "product_fYTwLf",
+        "product_9A3pKD"
+      ],
+      "name": "EE Grid",
+      "settings": {
+        "heading": "Tisso vison in the wild"
       }
     }
   },
   "order": [
     "main",
-    "ee_banner_H4qVEa"
+    "ee_banner_H4qVEa",
+    "ee_product_grid_VDhCrE"
   ]
 }
