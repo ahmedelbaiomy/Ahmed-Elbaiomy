@@ -8,13 +8,15 @@
   {% assign frame_width = 1440.0 %}
   {% assign frame_height = 780.0 %}
   {% assign header_height = 64.0 %}
-  {% assign heading_top = 489.0 | minus: header_height | times: 100 | divided_by: frame_height %}
+ 
+  {% assign content_offset = 30.0 %}
+  {% assign heading_top = 489.0 | minus: header_height | plus: content_offset | times: 100 | divided_by: frame_height %}
   {% assign heading_left = 67.0 | times: 100 | divided_by: frame_width %}
   {% assign heading_width = 459.0 | times: 100 | divided_by: frame_width %}
-  {% assign description_top = 609.0 | minus: header_height | times: 100 | divided_by: frame_height %}
+  {% assign description_top = 609.0 | minus: header_height | plus: content_offset | times: 100 | divided_by: frame_height %}
   {% assign description_left = 67.0 | times: 100 | divided_by: frame_width %}
   {% assign description_width = 483.0 | times: 100 | divided_by: frame_width %}
-  {% assign button_top_px = 743.0 | minus: header_height %}
+  {% assign button_top_px = 743.0 | minus: header_height | plus: content_offset %}
   {% assign button_bottom = frame_height | minus: button_top_px | minus: 50.0 | times: 100 | divided_by: frame_height %}
   {% assign button_left = 67.0 | times: 100 | divided_by: frame_width %}
   {% assign button_width = 220.0 | times: 100 | divided_by: frame_width %}
