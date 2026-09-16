@@ -1,17 +1,35 @@
 {{ 'ee-banner.css' | asset_url | stylesheet_tag }}
 
 <section class="ee-banner" id="ee-banner-{{ section.id }}">
-  <div class="ee-banner__topbar">
-    <p class="ee-banner__brand">
-      {{ section.settings.brand_text }}
+  <div class="ee-banner__header">
+    <div class="ee-banner__logo">
+      {% if section.settings.logo != blank %}
+        {{
+          section.settings.logo
+          | image_url: width: 200
+          | image_tag: loading: 'eager'
+        }}
+      {% else %}
+        <span class="ee-banner__logo-text">{{ section.settings.brand_text }}</span>
+      {% endif %}
+    </div>
+
+    <p class="ee-banner__header-text">
+      {{ section.settings.header_text }}
     </p>
 
     <a
-      class="ee-banner__gift-link"
+      class="ee-banner__header-cta"
       href="{{ section.settings.top_button_link }}"
     >
-      {{ section.settings.top_button_text }}
-      <span aria-hidden="true">→</span>
+      <span>{{ section.settings.top_button_text }}</span>
+      <span class="ee-banner__header-cta-icon" aria-hidden="true">
+        {% if section.settings.top_button_icon != blank %}
+          {{ section.settings.top_button_icon | image_url: width: 40 | image_tag: loading: 'lazy' }}
+        {% else %}
+          →
+        {% endif %}
+      </span>
     </a>
   </div>
 
@@ -58,21 +76,39 @@
   "name": "EE Banner",
   "settings": [
     {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "Logo image"
+    },
+    {
       "type": "text",
       "id": "brand_text",
-      "label": "Brand text",
+      "label": "Logo fallback text",
+      "info": "Shown only if no logo image is uploaded",
       "default": "TISSO VISON"
     },
     {
       "type": "text",
+      "id": "header_text",
+      "label": "Header center text",
+      "default": "Find the ideal gift for your loved ones."
+    },
+    {
+      "type": "text",
       "id": "top_button_text",
-      "label": "Top button text",
+      "label": "Header button text",
       "default": "CHOOSE GIFT"
     },
     {
       "type": "url",
       "id": "top_button_link",
-      "label": "Top button link"
+      "label": "Header button link"
+    },
+    {
+      "type": "image_picker",
+      "id": "top_button_icon",
+      "label": "Header button icon",
+      "info": "Optional. Falls back to an arrow if not set"
     },
     {
       "type": "image_picker",

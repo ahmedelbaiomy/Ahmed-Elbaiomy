@@ -2,30 +2,102 @@
   width: 100%;
 }
 
-.ee-banner__topbar {
-  min-height: 46px;
-  display: flex;
+.ee-banner__header {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
   align-items: center;
-  justify-content: space-between;
-  padding: 0 40px;
+  gap: 20px;
+  min-height: 64px;
+  box-sizing: border-box;
+  padding: 10px 50px;
+  background: #f5f5f5;
 }
 
-.ee-banner__brand {
+.ee-banner__logo {
+  justify-self: start;
+  display: flex;
+  align-items: center;
+}
+
+.ee-banner__logo img {
+  display: block;
+  height: 32px;
+  width: auto;
+}
+
+.ee-banner__logo-text {
   margin: 0;
   font-size: 16px;
   font-weight: 500;
+  white-space: nowrap;
 }
 
-.ee-banner__gift-link {
+.ee-banner__header-text {
+  grid-column: 2;
+  justify-self: center;
+  margin: 0;
+  font-family: "Jost", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 16px;
+  line-height: 13.42px;
+  letter-spacing: 0;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.ee-banner__header-cta {
+  position: relative;
+  justify-self: end;
   display: inline-flex;
   align-items: center;
-  gap: 30px;
+  gap: 12px;
   padding: 12px 24px;
+  overflow: hidden;
   background: #fff544;
   color: #000;
   text-decoration: none;
   font-size: 12px;
   font-weight: 500;
+  white-space: nowrap;
+}
+
+.ee-banner__header-cta > * {
+  position: relative;
+  z-index: 1;
+}
+
+.ee-banner__header-cta::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: #000;
+  transform: translateX(-101%);
+  transition: transform 0.3s ease;
+}
+
+.ee-banner__header-cta:hover::before {
+  transform: translateX(0);
+}
+
+.ee-banner__header-cta:hover {
+  color: #fff;
+}
+
+.ee-banner__header-cta-icon {
+  display: inline-flex;
+  align-items: center;
+  transition: transform 0.25s ease;
+}
+
+.ee-banner__header-cta-icon img {
+  display: block;
+  width: 14px;
+  height: auto;
+}
+
+.ee-banner__header-cta:hover .ee-banner__header-cta-icon {
+  transform: translateX(4px);
 }
 
 .ee-banner__hero {
@@ -103,8 +175,18 @@
 }
 
 .ee-banner__ticker {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 40px;
+  box-sizing: border-box;
   padding: 8px 20px;
+  background: #f5f5f5;
+  font-family: "Jost", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 16px;
+  line-height: 13.42px;
+  letter-spacing: 0;
   text-align: center;
-  font-size: 10px;
-  text-transform: uppercase;
 }
