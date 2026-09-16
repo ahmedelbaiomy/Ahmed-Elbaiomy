@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Jost:wght@400;500&display=swap");
+
 .ee-banner {
   width: 100%;
 }
@@ -52,8 +54,8 @@
   justify-self: end;
   display: inline-flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 12px;
+  justify-content: center;
+  gap: 8px;
   width: 207px;
   height: 44px;
   box-sizing: border-box;
@@ -108,6 +110,7 @@
 .ee-banner__hero {
   position: relative;
   overflow: hidden;
+  background: #fff;
 }
 
 .ee-banner__image {
@@ -118,8 +121,8 @@
 
 .ee-banner__heading {
   position: absolute;
-  top: 489px;
-  left: 67px;
+  top: var(--pos-top);
+  left: var(--pos-left);
   margin: 0;
   font-family: "Jost", sans-serif;
   font-weight: 500;
@@ -132,8 +135,8 @@
 
 .ee-banner__description {
   position: absolute;
-  top: 609px;
-  left: 67px;
+  top: var(--pos-top);
+  left: var(--pos-left);
   max-width: 500px;
   margin: 0;
   font-family: "Jost", sans-serif;
@@ -151,13 +154,13 @@
 
 .ee-banner__button {
   position: absolute;
-  top: 743px;
-  left: 67px;
+  top: var(--pos-top);
+  left: var(--pos-left);
   display: inline-flex;
   align-items: center;
   justify-content: space-between;
-  width: 220px;
-  height: 50px;
+  width: var(--btn-width);
+  height: var(--btn-height);
   box-sizing: border-box;
   padding: 0 20px;
   overflow: hidden;

@@ -33,6 +33,17 @@
     </a>
   </div>
 
+  {% assign hero_img_width = section.settings.background_image.width | default: 1440 %}
+  {% assign hero_img_height = section.settings.background_image.height | default: 868 %}
+  {% assign heading_top = 489.0 | times: 100 | divided_by: hero_img_height %}
+  {% assign heading_left = 67.0 | times: 100 | divided_by: hero_img_width %}
+  {% assign description_top = 609.0 | times: 100 | divided_by: hero_img_height %}
+  {% assign description_left = 67.0 | times: 100 | divided_by: hero_img_width %}
+  {% assign button_top = 743.0 | times: 100 | divided_by: hero_img_height %}
+  {% assign button_left = 67.0 | times: 100 | divided_by: hero_img_width %}
+  {% assign button_width = 220.0 | times: 100 | divided_by: hero_img_width %}
+  {% assign button_height = 50.0 | times: 100 | divided_by: hero_img_height %}
+
   <div class="ee-banner__hero">
     {% if section.settings.background_image != blank %}
       {{
@@ -46,11 +57,17 @@
     {% endif %}
 
     <div class="ee-banner__content">
-      <h1 class="ee-banner__heading">
+      <h1
+        class="ee-banner__heading"
+        style="--pos-top: {{ heading_top }}%; --pos-left: {{ heading_left }}%;"
+      >
         {{ section.settings.heading }}
       </h1>
 
-      <div class="ee-banner__description">
+      <div
+        class="ee-banner__description"
+        style="--pos-top: {{ description_top }}%; --pos-left: {{ description_left }}%;"
+      >
         {{ section.settings.description }}
       </div>
 
@@ -58,6 +75,7 @@
         <a
           href="{{ section.settings.button_link }}"
           class="ee-banner__button"
+          style="--pos-top: {{ button_top }}%; --pos-left: {{ button_left }}%; --btn-width: {{ button_width }}%; --btn-height: {{ button_height }}%;"
         >
           <span>{{ section.settings.button_text }}</span>
           <span aria-hidden="true">→</span>
