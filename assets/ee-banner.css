@@ -6,6 +6,7 @@
   display: grid;
   grid-template-columns: 1fr auto 1fr;
   align-items: center;
+  align-content: center;
   gap: 20px;
   min-height: 64px;
   box-sizing: border-box;
@@ -21,8 +22,8 @@
 
 .ee-banner__logo img {
   display: block;
-  height: 32px;
-  width: auto;
+  width: 151px;
+  height: 19px;
 }
 
 .ee-banner__logo-text {
@@ -51,8 +52,12 @@
   justify-self: end;
   display: inline-flex;
   align-items: center;
+  justify-content: space-between;
   gap: 12px;
-  padding: 12px 24px;
+  width: 207px;
+  height: 44px;
+  box-sizing: border-box;
+  padding: 0 24px;
   overflow: hidden;
   background: #fff544;
   color: #000;
@@ -111,27 +116,33 @@
   height: auto;
 }
 
-.ee-banner__content {
-  position: absolute;
-  top: 50%;
-  left: 40px;
-  transform: translateY(-50%);
-  z-index: 2;
-  max-width: 420px;
-}
-
 .ee-banner__heading {
-  margin: 0 0 24px;
-  font-size: 56px;
-  line-height: 1;
+  position: absolute;
+  top: 489px;
+  left: 67px;
+  margin: 0;
+  font-family: "Jost", sans-serif;
   font-weight: 500;
+  font-style: normal;
+  font-size: 70px;
+  line-height: 100%;
+  letter-spacing: 0;
+  vertical-align: middle;
 }
 
 .ee-banner__description {
-  max-width: 360px;
-  margin-bottom: 28px;
-  font-size: 16px;
-  line-height: 1.4;
+  position: absolute;
+  top: 609px;
+  left: 67px;
+  max-width: 500px;
+  margin: 0;
+  font-family: "Jost", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 20px;
+  line-height: 140%;
+  letter-spacing: 0;
+  vertical-align: middle;
 }
 
 .ee-banner__description p {
@@ -139,13 +150,16 @@
 }
 
 .ee-banner__button {
-  position: relative;
+  position: absolute;
+  top: 743px;
+  left: 67px;
   display: inline-flex;
   align-items: center;
   justify-content: space-between;
-  gap: 40px;
-  min-width: 180px;
-  padding: 14px 20px;
+  width: 220px;
+  height: 50px;
+  box-sizing: border-box;
+  padding: 0 20px;
   overflow: hidden;
   background: #000;
   color: #fff;
