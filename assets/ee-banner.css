@@ -1,0 +1,110 @@
+.ee-banner {
+  width: 100%;
+}
+
+.ee-banner__topbar {
+  min-height: 46px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 40px;
+}
+
+.ee-banner__brand {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.ee-banner__gift-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 30px;
+  padding: 12px 24px;
+  background: #fff544;
+  color: #000;
+  text-decoration: none;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.ee-banner__hero {
+  position: relative;
+  overflow: hidden;
+}
+
+.ee-banner__image {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.ee-banner__content {
+  position: absolute;
+  top: 50%;
+  left: 40px;
+  transform: translateY(-50%);
+  z-index: 2;
+  max-width: 420px;
+}
+
+.ee-banner__heading {
+  margin: 0 0 24px;
+  font-size: 56px;
+  line-height: 1;
+  font-weight: 500;
+}
+
+.ee-banner__description {
+  max-width: 360px;
+  margin-bottom: 28px;
+  font-size: 16px;
+  line-height: 1.4;
+}
+
+.ee-banner__description p {
+  margin: 0;
+}
+
+.ee-banner__button {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 40px;
+  min-width: 180px;
+  padding: 14px 20px;
+  overflow: hidden;
+  background: #000;
+  color: #fff;
+  text-decoration: none;
+}
+
+.ee-banner__button > * {
+  position: relative;
+  z-index: 1;
+}
+
+.ee-banner__button::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: #fff544;
+  transform: translateX(-101%);
+  transition: transform 0.3s ease;
+}
+
+.ee-banner__button:hover::before {
+  transform: translateX(0);
+}
+
+.ee-banner__button:hover {
+  color: #000;
+}
+
+.ee-banner__ticker {
+  padding: 8px 20px;
+  text-align: center;
+  font-size: 10px;
+  text-transform: uppercase;
+}
