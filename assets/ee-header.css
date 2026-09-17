@@ -133,6 +133,10 @@
   height: auto;
 }
 
+.ee-banner__header-cta:hover .ee-banner__header-cta-icon img {
+  filter: invert(1);
+}
+
 .ee-banner__header-cta:hover .ee-banner__header-cta-icon {
   transform: translateX(4px);
 }

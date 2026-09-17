@@ -92,6 +92,10 @@
   height: auto;
 }
 
+.ee-banner__button:hover img {
+  filter: invert(1);
+}
+
 .ee-banner__button > * {
   position: relative;
   z-index: 1;
