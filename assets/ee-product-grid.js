@@ -106,33 +106,16 @@
     var colorIndex = findOptionIndex(product, 'color');
     var sizeIndex = findOptionIndex(product, 'size');
 
-    if (colorIndex === -1 || sizeIndex === -1) {
-      console.log('ee-grid bonus rule: product has no Color/Size options', {
-        options: product.options,
-        colorIndex: colorIndex,
-        sizeIndex: sizeIndex
-      });
-      return false;
-    }
+    if (colorIndex === -1 || sizeIndex === -1) return false;
 
     var colorValue = variant.options[colorIndex];
     var sizeValue = variant.options[sizeIndex];
-    var matches = isBlackColorValue(colorValue) && isMediumSizeValue(sizeValue);
 
-    console.log('ee-grid bonus rule check', {
-      colorValue: colorValue,
-      sizeValue: sizeValue,
-      matches: matches
-    });
-
-    return matches;
+    return isBlackColorValue(colorValue) && isMediumSizeValue(sizeValue);
   }
 
   function getBonusVariant() {
-    if (!bonusProduct || !bonusProduct.variants) {
-      console.log('ee-grid bonus rule: bonus product not resolved from Liquid');
-      return null;
-    }
+    if (!bonusProduct || !bonusProduct.variants) return null;
 
     var colorIndex = findOptionIndex(bonusProduct, 'color');
     var sizeIndex = findOptionIndex(bonusProduct, 'size');
@@ -144,15 +127,12 @@
         var sizeValue = variant.options[sizeIndex];
 
         if (isBlackColorValue(colorValue) && isMediumSizeValue(sizeValue) && variant.available) {
-          console.log('ee-grid bonus rule: resolved bonus variant by Black/Medium match', variant.id);
           return variant;
         }
       }
     }
 
-    var fallback = findFirstAvailableVariant(bonusProduct);
-    console.log('ee-grid bonus rule: falling back to first available bonus variant', fallback && fallback.id);
-    return fallback;
+    return findFirstAvailableVariant(bonusProduct);
   }
 
   function updateVariantState() {
@@ -346,12 +326,6 @@
 
     var items = [{ id: currentVariant.id, quantity: 1 }];
 
-    console.log('ee-grid add to cart: selected options', {
-      optionNames: currentProduct.options,
-      selectedOptions: selectedOptions,
-      variantOptions: currentVariant.options
-    });
-
     if (variantTriggersBonusRule(currentProduct, currentVariant)) {
       var bonusVariant = getBonusVariant();
 
@@ -361,8 +335,6 @@
         console.warn('ee-grid: Black + Medium rule triggered but no available bonus product variant was found');
       }
     }
-
-    console.log('ee-grid add to cart: final items payload', items);
 
     fetch('/cart/add.js', {
       method: 'POST',

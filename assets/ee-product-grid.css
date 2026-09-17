@@ -97,7 +97,8 @@
   width: 311px;
   max-width: calc(100vw - 40px);
   height: auto;
-  max-height: 90vh;
+  max-height: calc(100vh - 32px);
+  max-height: calc(100dvh - 32px);
   opacity: 1;
   overflow-y: auto;
   background: #fff;
@@ -111,7 +112,7 @@
   right: 16px;
   border: 0;
   background: none;
-  padding: 4px;
+  padding: 0px;
   line-height: 0;
   cursor: pointer;
 }
