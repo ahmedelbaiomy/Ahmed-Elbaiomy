@@ -19,41 +19,6 @@
   var currentVariant = null;
   var selectedOptions = [];
 
-  (function debugAllBlocks() {
-    var rows = [];
-
-    grid.querySelectorAll('[data-ee-grid-trigger]').forEach(function (button) {
-      var blockId = button.getAttribute('data-block-id');
-      var script = document.getElementById('ee-grid-product-' + blockId);
-      var raw = script ? script.textContent.trim() : null;
-      var parsed = null;
-      var parseError = '';
-
-      try {
-        parsed = raw ? JSON.parse(raw) : null;
-      } catch (e) {
-        parseError = e.message;
-      }
-
-      var isObject = parsed !== null && typeof parsed === 'object';
-
-      rows.push({
-        blockId: blockId,
-        scriptFound: !!script,
-        rawLength: raw ? raw.length : 0,
-        parsedType: typeof parsed,
-        isObject: isObject,
-        title: isObject ? parsed.title : parsed,
-        hasVariants: !!(isObject && parsed.variants),
-        variantCount: isObject && parsed.variants ? parsed.variants.length : 0,
-        parseError: parseError
-      });
-    });
-
-    console.log('ee-grid debug: block/product summary');
-    console.table(rows);
-  })();
-
   function formatMoney(cents, format) {
     var placeholderMatch = format.match(/\{\{\s*(\w+)\s*\}\}/);
     var key = placeholderMatch ? placeholderMatch[1] : 'amount';
@@ -126,6 +91,8 @@
     }
     if (!defaultVariant) defaultVariant = currentProduct.variants[0];
 
+    var optionBlocks = [];
+
     currentProduct.options.forEach(function (name, index) {
       var values = [];
 
@@ -145,7 +112,9 @@
       label.textContent = name;
       wrap.appendChild(label);
 
-      if (name.toLowerCase() === 'color') {
+      var isColor = name.toLowerCase() === 'color';
+
+      if (isColor) {
         var swatches = document.createElement('div');
         swatches.className = 'ee-grid__modal-swatches';
 
@@ -154,6 +123,7 @@
           swatch.type = 'button';
           swatch.className = 'ee-grid__swatch';
           swatch.textContent = value;
+          swatch.style.setProperty('--swatch-color', value.toLowerCase());
           swatch.setAttribute('aria-pressed', value === selectedOptions[index] ? 'true' : 'false');
 
           swatch.addEventListener('click', function () {
@@ -190,7 +160,15 @@
         wrap.appendChild(select);
       }
 
-      optionsEl.appendChild(wrap);
+      optionBlocks.push({ isColor: isColor, element: wrap });
+    });
+
+    optionBlocks.sort(function (a, b) {
+      return (b.isColor ? 1 : 0) - (a.isColor ? 1 : 0);
+    });
+
+    optionBlocks.forEach(function (block) {
+      optionsEl.appendChild(block.element);
     });
   }
 
