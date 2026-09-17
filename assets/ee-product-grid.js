@@ -82,6 +82,15 @@
 
     if (!hasRealOptions) return;
 
+    var defaultVariant = null;
+    for (var v = 0; v < currentProduct.variants.length; v++) {
+      if (currentProduct.variants[v].available) {
+        defaultVariant = currentProduct.variants[v];
+        break;
+      }
+    }
+    if (!defaultVariant) defaultVariant = currentProduct.variants[0];
+
     currentProduct.options.forEach(function (name, index) {
       var values = [];
 
@@ -90,7 +99,8 @@
         if (value && values.indexOf(value) === -1) values.push(value);
       });
 
-      selectedOptions[index] = values[0];
+      var defaultValue = defaultVariant.options && defaultVariant.options[index];
+      selectedOptions[index] = defaultValue || values[0];
 
       var wrap = document.createElement('div');
       wrap.className = 'ee-grid__modal-option';
@@ -157,8 +167,8 @@
     dialog.focus();
 
     imageEl.src = product.featured_image || (product.images && product.images[0]) || '';
-    imageEl.alt = product.title;
-    titleEl.textContent = product.title;
+    imageEl.alt = product.title || '';
+    titleEl.textContent = product.title || '';
     descriptionEl.innerHTML = product.description || '';
 
     buildOptions();

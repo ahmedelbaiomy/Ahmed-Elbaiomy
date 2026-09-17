@@ -94,9 +94,10 @@
 .ee-grid__modal-dialog {
   position: relative;
   z-index: 1;
-  width: 100%;
-  max-width: 380px;
+  width: 311px;
+  height: auto;
   max-height: 90vh;
+  opacity: 1;
   overflow-y: auto;
   background: #fff;
   padding: 24px;
@@ -264,7 +265,8 @@
   }
 
   .ee-grid__modal-dialog {
-    max-width: none;
+    width: 100%;
+    height: auto;
     max-height: 85vh;
   }
 }
