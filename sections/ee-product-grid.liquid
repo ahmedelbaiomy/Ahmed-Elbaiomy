@@ -1,7 +1,11 @@
 {{ 'ee-product-grid.css' | asset_url | stylesheet_tag }}
 <script src="{{ 'ee-product-grid.js' | asset_url }}" defer></script>
 
-<section class="ee-grid" id="ee-grid-{{ section.id }}">
+<section
+  class="ee-grid"
+  id="ee-grid-{{ section.id }}"
+  data-money-format="{{ shop.money_format | escape }}"
+>
   <h2 class="ee-grid__heading">{{ section.settings.heading }}</h2>
 
   <div class="ee-grid__list">
@@ -25,7 +29,7 @@
                 widths: '400, 600, 800',
                 alt: image_alt
             }}
-            <span class="ee-grid__hotspot" aria-hidden="true">
+            <span class="ee-grid__hotspot ee-grid__hotspot--{{ block.settings.hotspot_position }}" aria-hidden="true">
               <img src="{{ 'circle-plus.svg' | asset_url }}" alt="" width="24" height="24">
             </span>
           </button>
@@ -39,6 +43,37 @@
         {% endif %}
       </div>
     {% endfor %}
+  </div>
+
+  <div class="ee-grid__modal" hidden>
+    <div class="ee-grid__modal-overlay" data-ee-grid-close></div>
+    <div class="ee-grid__modal-dialog" role="dialog" aria-modal="true" tabindex="-1">
+      <button type="button" class="ee-grid__modal-close" data-ee-grid-close aria-label="Close">
+        <img src="{{ 'cross.svg' | asset_url }}" alt="" width="15" height="15">
+      </button>
+
+      <div class="ee-grid__modal-head">
+        <div class="ee-grid__modal-media">
+          <img class="ee-grid__modal-image" src="" alt="">
+        </div>
+
+        <div class="ee-grid__modal-info">
+          <h3 class="ee-grid__modal-title"></h3>
+          <p class="ee-grid__modal-price"></p>
+        </div>
+      </div>
+
+      <div class="ee-grid__modal-description"></div>
+
+      <div class="ee-grid__modal-options"></div>
+
+      <button type="button" class="ee-grid__modal-add" disabled>
+        <span>Add to cart</span>
+        <span aria-hidden="true">
+          <img src="{{ 'arrow-white.svg' | asset_url }}" alt="" width="26" height="12">
+        </span>
+      </button>
+    </div>
   </div>
 </section>
 
@@ -62,6 +97,19 @@
           "type": "product",
           "id": "product",
           "label": "Product"
+        },
+        {
+          "type": "select",
+          "id": "hotspot_position",
+          "label": "Hotspot position",
+          "options": [
+            { "value": "center", "label": "Center" },
+            { "value": "top-left", "label": "Top left" },
+            { "value": "top-right", "label": "Top right" },
+            { "value": "bottom-left", "label": "Bottom left" },
+            { "value": "bottom-right", "label": "Bottom right" }
+          ],
+          "default": "center"
         }
       ]
     }
