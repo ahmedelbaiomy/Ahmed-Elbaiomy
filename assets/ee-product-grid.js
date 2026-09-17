@@ -42,7 +42,7 @@
       var matches = true;
 
       for (var j = 0; j < selectedOptions.length; j++) {
-        if (selectedOptions[j] && variant.options[j] !== selectedOptions[j]) {
+        if (!selectedOptions[j] || variant.options[j] !== selectedOptions[j]) {
           matches = false;
           break;
         }
@@ -67,7 +67,7 @@
 
     var available = !!(currentVariant && currentVariant.available);
     addButton.disabled = !available;
-    addButtonText.textContent = !currentVariant ? 'Unavailable' : available ? 'Add to cart' : 'Sold out';
+    addButtonText.textContent = !currentVariant ? 'Select options' : available ? 'Add to cart' : 'Sold out';
   }
 
   function buildOptions() {
@@ -101,8 +101,14 @@
         if (value && values.indexOf(value) === -1) values.push(value);
       });
 
-      var defaultValue = defaultVariant.options && defaultVariant.options[index];
-      selectedOptions[index] = defaultValue || values[0];
+      var isColor = name.toLowerCase() === 'color';
+
+      if (isColor) {
+        var defaultValue = defaultVariant.options && defaultVariant.options[index];
+        selectedOptions[index] = defaultValue || values[0];
+      } else {
+        selectedOptions[index] = '';
+      }
 
       var wrap = document.createElement('div');
       wrap.className = 'ee-grid__modal-option';
@@ -111,8 +117,6 @@
       label.className = 'ee-grid__modal-option-label';
       label.textContent = name;
       wrap.appendChild(label);
-
-      var isColor = name.toLowerCase() === 'color';
 
       if (isColor) {
         var swatches = document.createElement('div');
@@ -142,8 +146,16 @@
 
         wrap.appendChild(swatches);
       } else {
+        var selectWrap = document.createElement('div');
+        selectWrap.className = 'ee-grid__modal-select-wrap';
+
         var select = document.createElement('select');
         select.className = 'ee-grid__modal-select';
+
+        var placeholder = document.createElement('option');
+        placeholder.value = '';
+        placeholder.textContent = 'Choose your ' + name.toLowerCase();
+        select.appendChild(placeholder);
 
         values.forEach(function (value) {
           var option = document.createElement('option');
@@ -152,12 +164,21 @@
           select.appendChild(option);
         });
 
+        select.value = '';
+
         select.addEventListener('change', function () {
           selectedOptions[index] = select.value;
           updateVariantState();
         });
 
-        wrap.appendChild(select);
+        var chevron = document.createElement('span');
+        chevron.className = 'ee-grid__modal-select-chevron';
+        chevron.setAttribute('aria-hidden', 'true');
+        chevron.textContent = String.fromCharCode(8964);
+
+        selectWrap.appendChild(select);
+        selectWrap.appendChild(chevron);
+        wrap.appendChild(selectWrap);
       }
 
       optionBlocks.push({ isColor: isColor, element: wrap });
