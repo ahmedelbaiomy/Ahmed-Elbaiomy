@@ -83,15 +83,6 @@
 
     if (!hasRealOptions) return;
 
-    var defaultVariant = null;
-    for (var v = 0; v < currentProduct.variants.length; v++) {
-      if (currentProduct.variants[v].available) {
-        defaultVariant = currentProduct.variants[v];
-        break;
-      }
-    }
-    if (!defaultVariant) defaultVariant = currentProduct.variants[0];
-
     var optionBlocks = [];
 
     currentProduct.options.forEach(function (name, index) {
@@ -104,12 +95,7 @@
 
       var isColor = name.toLowerCase() === 'color';
 
-      if (isColor) {
-        var defaultValue = defaultVariant.options && defaultVariant.options[index];
-        selectedOptions[index] = defaultValue || values[0];
-      } else {
-        selectedOptions[index] = '';
-      }
+      selectedOptions[index] = '';
 
       var wrap = document.createElement('div');
       wrap.className = 'ee-grid__modal-option';
