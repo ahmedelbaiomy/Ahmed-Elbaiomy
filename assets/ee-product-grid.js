@@ -160,11 +160,12 @@
   }
 
   function openModal(product) {
-    currentProduct = product;
-
-    if (!product || !product.title || !product.variants) {
-      console.warn('ee-grid: incomplete product data received', product);
+    if (!product || typeof product !== 'object' || !product.title || !product.variants) {
+      console.warn('ee-grid: incomplete product data received, ignoring click', product);
+      return;
     }
+
+    currentProduct = product;
 
     modal.hidden = false;
     document.body.style.overflow = 'hidden';
