@@ -162,6 +162,10 @@
   function openModal(product) {
     currentProduct = product;
 
+    if (!product || !product.title || !product.variants) {
+      console.warn('ee-grid: incomplete product data received', product);
+    }
+
     modal.hidden = false;
     document.body.style.overflow = 'hidden';
     dialog.focus();
