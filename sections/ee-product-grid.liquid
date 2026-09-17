@@ -13,6 +13,7 @@
       {% assign product = block.settings.product %}
       <div class="ee-grid__item" {{ block.shopify_attributes }}>
         {% if product.id %}
+          {% assign full_product = all_products[product.handle] %}
           {% assign image_alt = product.featured_image.alt | default: product.title %}
           <button
             type="button"
@@ -38,7 +39,7 @@
             </span>
           </button>
           <script type="application/json" id="ee-grid-product-{{ block.id }}">
-            {{ product | json }}
+            {{ full_product | json }}
           </script>
         {% else %}
           <div class="ee-grid__placeholder">
