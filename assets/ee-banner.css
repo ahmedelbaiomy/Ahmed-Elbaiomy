@@ -207,5 +207,12 @@
   .ee-banner__button {
     font-size: clamp(11px, 1.11vw, 14px);
     line-height: 128%;
+    white-space: nowrap;
+  }
+}
+
+@media (min-width: 750px) and (max-width: 1023px) {
+  .ee-banner__button {
+    bottom: 3.538462%;
   }
 }
