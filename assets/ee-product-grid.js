@@ -35,7 +35,7 @@
   }
 
   function findVariant() {
-    if (!currentProduct) return null;
+    if (!currentProduct || !currentProduct.variants) return null;
 
     for (var i = 0; i < currentProduct.variants.length; i++) {
       var variant = currentProduct.variants[i];
@@ -76,6 +76,7 @@
 
     var hasRealOptions =
       currentProduct.options &&
+      currentProduct.variants &&
       currentProduct.options.length > 0 &&
       !(currentProduct.variants.length === 1 && currentProduct.options[0] === 'Title');
 
@@ -85,8 +86,8 @@
       var values = [];
 
       currentProduct.variants.forEach(function (variant) {
-        var value = variant.options[index];
-        if (values.indexOf(value) === -1) values.push(value);
+        var value = variant.options && variant.options[index];
+        if (value && values.indexOf(value) === -1) values.push(value);
       });
 
       selectedOptions[index] = values[0];
@@ -151,6 +152,10 @@
   function openModal(product) {
     currentProduct = product;
 
+    modal.hidden = false;
+    document.body.style.overflow = 'hidden';
+    dialog.focus();
+
     imageEl.src = product.featured_image || (product.images && product.images[0]) || '';
     imageEl.alt = product.title;
     titleEl.textContent = product.title;
@@ -158,10 +163,6 @@
 
     buildOptions();
     updateVariantState();
-
-    modal.hidden = false;
-    document.body.style.overflow = 'hidden';
-    dialog.focus();
   }
 
   function closeModal() {
