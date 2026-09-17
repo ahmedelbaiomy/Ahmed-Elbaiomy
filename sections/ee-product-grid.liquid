@@ -52,6 +52,17 @@
   </div>
 
   {% assign bonus_product = section.settings.bonus_product %}
+  {% if bonus_product == blank or bonus_product.id == blank %}
+    {% assign bonus_product = all_products['soft-winter-jacket'] %}
+  {% endif %}
+  {% if bonus_product == blank or bonus_product.id == blank %}
+    {% for candidate in collections.all.products %}
+      {% if candidate.title == 'Soft Winter Jacket' %}
+        {% assign bonus_product = candidate %}
+        {% break %}
+      {% endif %}
+    {% endfor %}
+  {% endif %}
   {% if bonus_product.id %}
     {% assign bonus_product_full = all_products[bonus_product.handle] %}
     <script type="application/json" id="ee-grid-bonus-product">
