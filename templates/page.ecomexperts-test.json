@@ -1,0 +1,115 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "disabled": true,
+      "settings": {
+        "content_direction": "column",
+        "gap": 32,
+        "background_color": "{{ settings.color_palette.background }}",
+        "padding-block-start": 40,
+        "padding-block-end": 80
+      }
+    },
+    "ee_banner_H4qVEa": {
+      "type": "ee-banner",
+      "name": "EE Banner",
+      "settings": {
+        "logo": "shopify://shop_images/logo.svg",
+        "brand_text": "TISSO VISON",
+        "header_text": "Find the ideal gift for your loved ones.",
+        "top_button_text": "CHOOSE GIFT",
+        "top_button_link": "",
+        "top_button_icon": "shopify://shop_images/left-arrow.svg",
+        "background_image": "shopify://shop_images/hero.svg",
+        "background_image_mobile": "shopify://shop_images/hero-mobile.svg",
+        "heading": "The Gift Guide",
+        "description": "<p>Discover Joy: Your Ultimate Holiday Gift Destination. Explore our curated selection and find the perfect gifts to delight your loved ones this holiday season.</p>",
+        "description_mobile": "<p>Discover Joy: Your Ultimate Holiday Gift Destination.</p>",
+        "button_text": "SHOP NOW",
+        "button_link": "",
+        "ticker_text": "SUSTAINABLE, ETHICALLY MADE CLOTHES IN SIZES XXS TO 6XL",
+        "ticker_text_mobile": "SUSTAINABLE, ETHICALLY MADE ACTIVEWEAR"
+      }
+    },
+    "ee_product_grid_VDhCrE": {
+      "type": "ee-product-grid",
+      "blocks": {
+        "product_EWBXMz": {
+          "type": "product",
+          "settings": {
+            "product": "black-leather-bag",
+            "hotspot_x": 60,
+            "hotspot_y": 57
+          }
+        },
+        "product_UFw9VB": {
+          "type": "product",
+          "settings": {
+            "product": "blue-silk-tuxedo",
+            "hotspot_x": 83,
+            "hotspot_y": 54
+          }
+        },
+        "product_T8cQDN": {
+          "type": "product",
+          "settings": {
+            "product": "chequered-red-shirt",
+            "hotspot_x": 62,
+            "hotspot_y": 23
+          }
+        },
+        "product_eJMbLT": {
+          "type": "product",
+          "settings": {
+            "product": "classic-leather-jacket",
+            "hotspot_x": 72,
+            "hotspot_y": 20
+          }
+        },
+        "product_fYTwLf": {
+          "type": "product",
+          "settings": {
+            "product": "classic-varsity-top",
+            "hotspot_x": 51,
+            "hotspot_y": 27
+          }
+        },
+        "product_9A3pKD": {
+          "type": "product",
+          "settings": {
+            "product": "dark-denim-top",
+            "hotspot_x": 75,
+            "hotspot_y": 41
+          }
+        }
+      },
+      "block_order": [
+        "product_EWBXMz",
+        "product_UFw9VB",
+        "product_T8cQDN",
+        "product_eJMbLT",
+        "product_fYTwLf",
+        "product_9A3pKD"
+      ],
+      "name": "EE Grid",
+      "settings": {
+        "heading": "Tisso vison in the wild"
+      }
+    }
+  },
+  "order": [
+    "main",
+    "ee_banner_H4qVEa",
+    "ee_product_grid_VDhCrE"
+  ]
+}

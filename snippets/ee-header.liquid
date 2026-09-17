@@ -1,0 +1,59 @@
+{{ 'ee-header.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'ee-header.js' | asset_url }}" defer="defer"></script>
+
+<div class="ee-banner__header">
+  <button
+    type="button"
+    class="ee-banner__menu-icon"
+    aria-expanded="false"
+    aria-controls="ee-header-dropdown-{{ section.id }}"
+    aria-label="Menu"
+  >
+    <img
+      src="{{ 'burger.svg' | asset_url }}"
+      alt=""
+      class="ee-banner__menu-icon-open"
+      width="20"
+      height="12"
+    >
+    <img
+      src="{{ 'cross.svg' | asset_url }}"
+      alt=""
+      class="ee-banner__menu-icon-close"
+      width="15"
+      height="15"
+    >
+  </button>
+
+  <div class="ee-banner__logo">
+    {% if section.settings.logo != blank %}
+      {{
+        section.settings.logo
+        | image_url: width: 200
+        | image_tag: loading: 'eager'
+      }}
+    {% else %}
+      <span class="ee-banner__logo-text">{{ section.settings.brand_text }}</span>
+    {% endif %}
+  </div>
+
+  <div class="ee-banner__header-dropdown" id="ee-header-dropdown-{{ section.id }}">
+    <p class="ee-banner__header-text">
+      {{ section.settings.header_text }}
+    </p>
+
+    <a
+      class="ee-banner__header-cta"
+      href="{{ section.settings.top_button_link }}"
+    >
+      <span>{{ section.settings.top_button_text }}</span>
+      <span class="ee-banner__header-cta-icon" aria-hidden="true">
+        {% if section.settings.top_button_icon != blank %}
+          {{ section.settings.top_button_icon | image_url: width: 40 | image_tag: loading: 'lazy' }}
+        {% else %}
+          <img src="{{ 'arrow-black.svg' | asset_url }}" alt="" width="26" height="12">
+        {% endif %}
+      </span>
+    </a>
+  </div>
+</div>

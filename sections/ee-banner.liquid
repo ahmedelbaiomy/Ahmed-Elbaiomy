@@ -1,0 +1,189 @@
+{{ 'ee-banner.css' | asset_url | stylesheet_tag }}
+
+<section class="ee-banner" id="ee-banner-{{ section.id }}">
+  {% render 'ee-header', section: section %}
+
+
+
+  {% assign frame_width = 1440.0 %}
+  {% assign frame_height = 780.0 %}
+  {% assign header_height = 64.0 %}
+ 
+  {% assign heading_top = 489.0 | minus: header_height | times: 100 | divided_by: frame_height %}
+  {% assign heading_left = 67.0 | times: 100 | divided_by: frame_width %}
+  {% assign heading_width = 459.0 | times: 100 | divided_by: frame_width %}
+  {% assign description_top = 609.0 | minus: header_height | times: 100 | divided_by: frame_height %}
+  {% assign description_left = 67.0 | times: 100 | divided_by: frame_width %}
+  {% assign description_width = 483.0 | times: 100 | divided_by: frame_width %}
+  {% assign button_top_px = 743.0 | minus: header_height %}
+  {% assign button_bottom = frame_height | minus: button_top_px | minus: 50.0 | times: 100 | divided_by: frame_height %}
+  {% assign button_left = 67.0 | times: 100 | divided_by: frame_width %}
+  {% assign button_width = 220.0 | times: 100 | divided_by: frame_width %}
+  {% assign button_height = 50.0 | times: 100 | divided_by: frame_height %}
+  {% assign mobile_description = section.settings.description_mobile | default: section.settings.description %}
+  {% assign mobile_ticker_text = section.settings.ticker_text_mobile | default: section.settings.ticker_text %}
+
+  <div class="ee-banner__hero">
+    <h1
+      class="ee-banner__heading"
+      style="--pos-top: {{ heading_top }}%; --pos-left: {{ heading_left }}%; --el-width: {{ heading_width }}%;"
+    >
+      {{ section.settings.heading }}
+    </h1>
+
+    <div
+      class="ee-banner__description ee-banner__description--desktop"
+      style="--pos-top: {{ description_top }}%; --pos-left: {{ description_left }}%; --el-width: {{ description_width }}%;"
+    >
+      {{ section.settings.description }}
+    </div>
+
+    <div
+      class="ee-banner__description ee-banner__description--mobile"
+      style="--pos-top: {{ description_top }}%; --pos-left: {{ description_left }}%; --el-width: {{ description_width }}%;"
+    >
+      {{ mobile_description }}
+    </div>
+
+    <div class="ee-banner__image-wrap">
+      <picture>
+        {% if section.settings.background_image_mobile != blank %}
+          <source
+            media="(max-width: 749px)"
+            srcset="{{ section.settings.background_image_mobile | image_url: width: 750 }} 1x, {{ section.settings.background_image_mobile | image_url: width: 1500 }} 2x"
+          >
+        {% endif %}
+        {% if section.settings.background_image != blank %}
+          {{
+            section.settings.background_image
+            | image_url: width: 2000
+            | image_tag:
+              class: 'ee-banner__image',
+              loading: 'eager',
+              widths: '750, 1100, 1500, 2000'
+          }}
+        {% endif %}
+      </picture>
+
+      {% if section.settings.button_text != blank %}
+        <a
+          href="{{ section.settings.button_link }}"
+          class="ee-banner__button"
+          style="--pos-bottom: {{ button_bottom }}%; --pos-left: {{ button_left }}%; --btn-width: {{ button_width }}%; --btn-height: {{ button_height }}%;"
+        >
+          <span>{{ section.settings.button_text }}</span>
+          <span aria-hidden="true">
+            <img src="{{ 'arrow-white.svg' | asset_url }}" alt="" width="26" height="12">
+          </span>
+        </a>
+      {% endif %}
+    </div>
+  </div>
+
+  <div class="ee-banner__ticker">
+    <span class="ee-banner__ticker-text--desktop">{{ section.settings.ticker_text }}</span>
+    <span class="ee-banner__ticker-text--mobile">{{ mobile_ticker_text }}</span>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "EE Banner",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "Logo image"
+    },
+    {
+      "type": "text",
+      "id": "brand_text",
+      "label": "Logo fallback text",
+      "info": "Shown only if no logo image is uploaded",
+      "default": "TISSO VISON"
+    },
+    {
+      "type": "text",
+      "id": "header_text",
+      "label": "Header center text",
+      "default": "Find the ideal gift for your loved ones."
+    },
+    {
+      "type": "text",
+      "id": "top_button_text",
+      "label": "Header button text",
+      "default": "CHOOSE GIFT"
+    },
+    {
+      "type": "url",
+      "id": "top_button_link",
+      "label": "Header button link"
+    },
+    {
+      "type": "image_picker",
+      "id": "top_button_icon",
+      "label": "Header button icon",
+      "info": "Optional. Falls back to an arrow if not set"
+    },
+    {
+      "type": "image_picker",
+      "id": "background_image",
+      "label": "Banner image"
+    },
+    {
+      "type": "image_picker",
+      "id": "background_image_mobile",
+      "label": "Banner image (mobile)",
+      "info": "Optional. Falls back to the desktop banner image if not set"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "The Gift Guide"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Description",
+      "default": "<p>Discover joy: Your Ultimate Holiday Gift Destination.</p>"
+    },
+    {
+      "type": "richtext",
+      "id": "description_mobile",
+      "label": "Description (mobile)",
+      "info": "Optional. Falls back to the desktop description if not set",
+      "default": "<p>Discover Joy: Your Ultimate Holiday Gift Destination.</p>"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button text",
+      "default": "SHOP NOW"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button link"
+    },
+    {
+      "type": "text",
+      "id": "ticker_text",
+      "label": "Bottom text",
+      "default": "SUSTAINABLE, ETHICALLY MADE CLOTHES IN SIZES XXS TO 6XL"
+    },
+    {
+      "type": "text",
+      "id": "ticker_text_mobile",
+      "label": "Bottom text (mobile)",
+      "info": "Optional. Falls back to the desktop text if not set",
+      "default": "SUSTAINABLE, ETHICALLY MADE ACTIVEWEAR"
+    }
+  ],
+  "presets": [
+    {
+      "name": "EE Banner"
+    }
+  ]
+}
+{% endschema %}
