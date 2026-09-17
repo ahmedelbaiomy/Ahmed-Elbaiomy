@@ -120,6 +120,7 @@
   display: flex;
   gap: 16px;
   margin-top: 20px;
+  margin-bottom: 12px;
 }
 
 .ee-grid__modal-media {
@@ -254,8 +255,18 @@
   align-items: center;
   justify-content: center;
   border-left: 1px solid #000;
-  font-size: 14px;
   pointer-events: none;
+}
+
+.ee-grid__modal-select-chevron img {
+  display: block;
+  width: 12px;
+  height: auto;
+  transition: transform 0.15s ease;
+}
+
+.ee-grid__modal-select-wrap[data-open="true"] .ee-grid__modal-select-chevron img {
+  transform: scaleY(-1);
 }
 
 .ee-grid__modal-add {
@@ -264,7 +275,7 @@
   justify-content: center;
   gap: 16px;
   width: 100%;
-  margin-top: 32px;
+  margin-top: 48px;
   padding: 16px;
   border: 0;
   background: #000;

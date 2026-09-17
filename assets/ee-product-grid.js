@@ -6,6 +6,7 @@
   if (!modal) return;
 
   var moneyFormat = grid.getAttribute('data-money-format') || '${{amount}}';
+  var chevronUrl = grid.getAttribute('data-chevron-url') || '';
   var dialog = modal.querySelector('.ee-grid__modal-dialog');
   var imageEl = modal.querySelector('.ee-grid__modal-image');
   var titleEl = modal.querySelector('.ee-grid__modal-title');
@@ -166,15 +167,28 @@
 
         select.value = '';
 
+        select.addEventListener('mousedown', function () {
+          selectWrap.setAttribute('data-open', 'true');
+        });
+
+        select.addEventListener('blur', function () {
+          selectWrap.setAttribute('data-open', 'false');
+        });
+
         select.addEventListener('change', function () {
           selectedOptions[index] = select.value;
+          selectWrap.setAttribute('data-open', 'false');
           updateVariantState();
         });
 
         var chevron = document.createElement('span');
         chevron.className = 'ee-grid__modal-select-chevron';
         chevron.setAttribute('aria-hidden', 'true');
-        chevron.textContent = String.fromCharCode(8964);
+
+        var chevronImg = document.createElement('img');
+        chevronImg.src = chevronUrl;
+        chevronImg.alt = '';
+        chevron.appendChild(chevronImg);
 
         selectWrap.appendChild(select);
         selectWrap.appendChild(chevron);
