@@ -38,7 +38,7 @@
             </span>
           </button>
           <script type="application/json" id="ee-grid-product-{{ block.id }}">
-            {{ product | json | replace: '</', '<\/' }}
+            {{ product | json }}
           </script>
         {% else %}
           <div class="ee-grid__placeholder">
