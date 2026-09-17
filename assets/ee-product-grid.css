@@ -58,13 +58,16 @@
   top: var(--hotspot-y, 50%);
   left: var(--hotspot-x, 50%);
   transform: translate(-50%, -50%);
-  display: block;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
 }
 
 .ee-grid__hotspot img {
   display: block;
-  width: 24px;
-  height: 24px;
+  width: 26px;
+  height: 26px;
 }
 
 .ee-grid__modal {
