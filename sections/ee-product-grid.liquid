@@ -51,6 +51,14 @@
     {% endfor %}
   </div>
 
+  {% assign bonus_product = section.settings.bonus_product %}
+  {% if bonus_product.id %}
+    {% assign bonus_product_full = all_products[bonus_product.handle] %}
+    <script type="application/json" id="ee-grid-bonus-product">
+      {{ bonus_product_full | json }}
+    </script>
+  {% endif %}
+
   <div class="ee-grid__modal" hidden>
     <div class="ee-grid__modal-overlay" data-ee-grid-close></div>
     <div class="ee-grid__modal-dialog" role="dialog" aria-modal="true" tabindex="-1">
@@ -91,6 +99,12 @@
       "id": "heading",
       "label": "Heading",
       "default": "Tisso vison in the wild"
+    },
+    {
+      "type": "product",
+      "id": "bonus_product",
+      "label": "Bonus product",
+      "info": "Automatically added to cart when a shopper selects a variant with both Black and Medium options in the popup."
     }
   ],
   "blocks": [

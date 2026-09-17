@@ -19,6 +19,17 @@
   var currentProduct = null;
   var currentVariant = null;
   var selectedOptions = [];
+  var isSubmitting = false;
+
+  var bonusProduct = null;
+  var bonusScript = document.getElementById('ee-grid-bonus-product');
+  if (bonusScript) {
+    try {
+      bonusProduct = JSON.parse(bonusScript.textContent);
+    } catch (error) {
+      bonusProduct = null;
+    }
+  }
 
   function formatMoney(cents, format) {
     var placeholderMatch = format.match(/\{\{\s*(\w+)\s*\}\}/);
@@ -53,6 +64,72 @@
     }
 
     return null;
+  }
+
+  function findOptionIndex(product, name) {
+    if (!product || !product.options) return -1;
+
+    for (var i = 0; i < product.options.length; i++) {
+      if (product.options[i] && product.options[i].toLowerCase() === name) return i;
+    }
+
+    return -1;
+  }
+
+  function findFirstAvailableVariant(product) {
+    if (!product || !product.variants) return null;
+
+    for (var i = 0; i < product.variants.length; i++) {
+      if (product.variants[i].available) return product.variants[i];
+    }
+
+    return null;
+  }
+
+  function variantTriggersBonusRule(product, variant) {
+    if (!product || !variant || !variant.options) return false;
+
+    var colorIndex = findOptionIndex(product, 'color');
+    var sizeIndex = findOptionIndex(product, 'size');
+
+    if (colorIndex === -1 || sizeIndex === -1) return false;
+
+    var colorValue = variant.options[colorIndex];
+    var sizeValue = variant.options[sizeIndex];
+
+    return (
+      !!colorValue &&
+      !!sizeValue &&
+      colorValue.toLowerCase() === 'black' &&
+      sizeValue.toLowerCase() === 'medium'
+    );
+  }
+
+  function getBonusVariant() {
+    if (!bonusProduct || !bonusProduct.variants) return null;
+
+    var colorIndex = findOptionIndex(bonusProduct, 'color');
+    var sizeIndex = findOptionIndex(bonusProduct, 'size');
+
+    if (colorIndex !== -1 && sizeIndex !== -1) {
+      for (var i = 0; i < bonusProduct.variants.length; i++) {
+        var variant = bonusProduct.variants[i];
+        var colorValue = variant.options[colorIndex];
+        var sizeValue = variant.options[sizeIndex];
+
+        if (
+          colorValue &&
+          sizeValue &&
+          colorValue.toLowerCase() === 'black' &&
+          sizeValue.toLowerCase() === 'medium' &&
+          variant.available
+        ) {
+          return variant;
+        }
+      }
+    }
+
+    return findFirstAvailableVariant(bonusProduct);
   }
 
   function updateVariantState() {
@@ -238,15 +315,28 @@
   });
 
   addButton.addEventListener('click', function () {
-    if (!currentVariant || !currentVariant.available) return;
+    if (isSubmitting || !currentVariant || !currentVariant.available) return;
 
+    isSubmitting = true;
     addButton.disabled = true;
     addButtonText.textContent = 'Adding...';
+
+    var items = [{ id: currentVariant.id, quantity: 1 }];
+
+    if (variantTriggersBonusRule(currentProduct, currentVariant)) {
+      var bonusVariant = getBonusVariant();
+
+      if (bonusVariant && bonusVariant.id !== currentVariant.id) {
+        items.push({ id: bonusVariant.id, quantity: 1 });
+      } else if (!bonusVariant) {
+        console.warn('ee-grid: Black + Medium rule triggered but no available bonus product variant was found');
+      }
+    }
 
     fetch('/cart/add.js', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ items: [{ id: currentVariant.id, quantity: 1 }] })
+      body: JSON.stringify({ items: items })
     })
       .then(function (response) {
         if (!response.ok) throw new Error('add-to-cart-failed');
@@ -255,11 +345,13 @@
       .then(function () {
         addButtonText.textContent = 'Added';
         setTimeout(function () {
+          isSubmitting = false;
           addButton.disabled = false;
           updateVariantState();
         }, 1500);
       })
       .catch(function () {
+        isSubmitting = false;
         addButtonText.textContent = 'Try again';
         addButton.disabled = false;
       });
