@@ -86,27 +86,53 @@
     return null;
   }
 
+  function normalizeOptionValue(value) {
+    return (value || '').toString().trim().toLowerCase();
+  }
+
+  function isBlackColorValue(value) {
+    var normalized = normalizeOptionValue(value);
+    return normalized === 'black';
+  }
+
+  function isMediumSizeValue(value) {
+    var normalized = normalizeOptionValue(value);
+    return normalized === 'medium' || normalized === 'm';
+  }
+
   function variantTriggersBonusRule(product, variant) {
     if (!product || !variant || !variant.options) return false;
 
     var colorIndex = findOptionIndex(product, 'color');
     var sizeIndex = findOptionIndex(product, 'size');
 
-    if (colorIndex === -1 || sizeIndex === -1) return false;
+    if (colorIndex === -1 || sizeIndex === -1) {
+      console.log('ee-grid bonus rule: product has no Color/Size options', {
+        options: product.options,
+        colorIndex: colorIndex,
+        sizeIndex: sizeIndex
+      });
+      return false;
+    }
 
     var colorValue = variant.options[colorIndex];
     var sizeValue = variant.options[sizeIndex];
+    var matches = isBlackColorValue(colorValue) && isMediumSizeValue(sizeValue);
 
-    return (
-      !!colorValue &&
-      !!sizeValue &&
-      colorValue.toLowerCase() === 'black' &&
-      sizeValue.toLowerCase() === 'medium'
-    );
+    console.log('ee-grid bonus rule check', {
+      colorValue: colorValue,
+      sizeValue: sizeValue,
+      matches: matches
+    });
+
+    return matches;
   }
 
   function getBonusVariant() {
-    if (!bonusProduct || !bonusProduct.variants) return null;
+    if (!bonusProduct || !bonusProduct.variants) {
+      console.log('ee-grid bonus rule: bonus product not resolved from Liquid');
+      return null;
+    }
 
     var colorIndex = findOptionIndex(bonusProduct, 'color');
     var sizeIndex = findOptionIndex(bonusProduct, 'size');
@@ -117,19 +143,16 @@
         var colorValue = variant.options[colorIndex];
         var sizeValue = variant.options[sizeIndex];
 
-        if (
-          colorValue &&
-          sizeValue &&
-          colorValue.toLowerCase() === 'black' &&
-          sizeValue.toLowerCase() === 'medium' &&
-          variant.available
-        ) {
+        if (isBlackColorValue(colorValue) && isMediumSizeValue(sizeValue) && variant.available) {
+          console.log('ee-grid bonus rule: resolved bonus variant by Black/Medium match', variant.id);
           return variant;
         }
       }
     }
 
-    return findFirstAvailableVariant(bonusProduct);
+    var fallback = findFirstAvailableVariant(bonusProduct);
+    console.log('ee-grid bonus rule: falling back to first available bonus variant', fallback && fallback.id);
+    return fallback;
   }
 
   function updateVariantState() {
@@ -323,6 +346,12 @@
 
     var items = [{ id: currentVariant.id, quantity: 1 }];
 
+    console.log('ee-grid add to cart: selected options', {
+      optionNames: currentProduct.options,
+      selectedOptions: selectedOptions,
+      variantOptions: currentVariant.options
+    });
+
     if (variantTriggersBonusRule(currentProduct, currentVariant)) {
       var bonusVariant = getBonusVariant();
 
@@ -332,6 +361,8 @@
         console.warn('ee-grid: Black + Medium rule triggered but no available bonus product variant was found');
       }
     }
+
+    console.log('ee-grid add to cart: final items payload', items);
 
     fetch('/cart/add.js', {
       method: 'POST',
