@@ -29,7 +29,11 @@
                 widths: '400, 600, 800',
                 alt: image_alt
             }}
-            <span class="ee-grid__hotspot ee-grid__hotspot--{{ block.settings.hotspot_position }}" aria-hidden="true">
+            <span
+              class="ee-grid__hotspot"
+              aria-hidden="true"
+              style="--hotspot-x: {{ block.settings.hotspot_x }}%; --hotspot-y: {{ block.settings.hotspot_y }}%;"
+            >
               <img src="{{ 'circle-plus.svg' | asset_url }}" alt="" width="24" height="24">
             </span>
           </button>
@@ -99,17 +103,24 @@
           "label": "Product"
         },
         {
-          "type": "select",
-          "id": "hotspot_position",
-          "label": "Hotspot position",
-          "options": [
-            { "value": "center", "label": "Center" },
-            { "value": "top-left", "label": "Top left" },
-            { "value": "top-right", "label": "Top right" },
-            { "value": "bottom-left", "label": "Bottom left" },
-            { "value": "bottom-right", "label": "Bottom right" }
-          ],
-          "default": "center"
+          "type": "range",
+          "id": "hotspot_x",
+          "label": "Hotspot horizontal position",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "unit": "%",
+          "default": 50
+        },
+        {
+          "type": "range",
+          "id": "hotspot_y",
+          "label": "Hotspot vertical position",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "unit": "%",
+          "default": 50
         }
       ]
     }

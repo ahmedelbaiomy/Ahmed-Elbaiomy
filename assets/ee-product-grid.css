@@ -55,6 +55,9 @@
 
 .ee-grid__hotspot {
   position: absolute;
+  top: var(--hotspot-y, 50%);
+  left: var(--hotspot-x, 50%);
+  transform: translate(-50%, -50%);
   display: block;
 }
 
@@ -62,32 +65,6 @@
   display: block;
   width: 24px;
   height: 24px;
-}
-
-.ee-grid__hotspot--center {
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
-
-.ee-grid__hotspot--top-left {
-  top: 16px;
-  left: 16px;
-}
-
-.ee-grid__hotspot--top-right {
-  top: 16px;
-  right: 16px;
-}
-
-.ee-grid__hotspot--bottom-left {
-  bottom: 16px;
-  left: 16px;
-}
-
-.ee-grid__hotspot--bottom-right {
-  bottom: 16px;
-  right: 16px;
 }
 
 .ee-grid__modal {
